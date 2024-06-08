@@ -1,0 +1,18 @@
+dist
+build
+.idea
+.venv
+examples
+__pycache__/
+# dotfiles
+.*
+!.gitignore
+!.github
+!.mailmap
+
+
+# js tooling
+package-lock.json
+package.json
+.husky
+**/__pycache__.venv/
