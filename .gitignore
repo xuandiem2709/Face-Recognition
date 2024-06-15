@@ -16,3 +16,6 @@ package-lock.json
 package.json
 .husky
 **/__pycache__.venv/
+
+w600k_r50.onnx
+git-filter-repo.tar.xz

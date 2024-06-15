@@ -1,34 +1,20 @@
-import os
-import sys
 import cv2
-import csv
-import glob
 import numpy as np
 import logging
 from db.managers import DBManager
 from db.common import dbSession
-import face_recognition
-import math
-from numpy.linalg import norm
-import time
 
 
-THRESHOLD = 0.39
+THRESHOLD = 0.45
 MIN_SIMILARITY_DIFFERENCE = 0.1
 
 logger = logging.getLogger(__name__)
 
 import onnxruntime as ort
 
-# EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
 EP_list = ['CPUExecutionProvider']
 session = ort.InferenceSession('w600k_r50.onnx', providers=EP_list)
-# Assuming the model expects an input shape of (1, C, H, W)
-# input_shape = session.get_inputs()[0].shape
-# input_size = (input_shape[3], input_shape[2])  # (W, H)
-# print("input_size: ", input_size)
-# print("input_shape: ", input_shape)
-# 
+
 input_name = session.get_inputs()[0].name
 output_name = session.get_outputs()[0].name
 
@@ -69,7 +55,6 @@ class Recognizer:
             List[str, str] : list of recognized user ID and user name
                 in string format
         """
-
 
         embeddings, embedding_dict = self._dbmanager.fetch_embeddings_data()
 

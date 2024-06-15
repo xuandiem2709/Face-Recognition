@@ -46,7 +46,7 @@ def save_embeddings():
 
     dbManager = DBManager(db_session)
     recognizer = Recognizer()
-    f = FaceDetector()
+    detect = FaceDetector()
 
     dbManager.clear_users_embeddings()
     # Iterate over each image filed
@@ -54,23 +54,21 @@ def save_embeddings():
         image_path = os.path.join(FOLDER_PATH, image_file)
 
         image = cv2.imread(image_path)
-        faces = f(image=image)
+        faces = detect(image=image)
+        if faces:
+            box, landmarks, det_score = faces[0]
+            facial_landmarks = landmarks.astype(np.int32)
+            face_img, landmarks5, trans = frontalize_face(image, facial_landmarks)
+            face_array = cv2.resize(face_img, (112, 112))
+            face_array = np.array(face_array, dtype=np.float32)
 
-        box, landmarks, det_score = faces[0]
-        # x, y, w, h = map(int, box)
-        # face_crop = image[y:y+h, x:x+w]
-        facial_landmarks = landmarks.astype(np.int32)
-        face_img, landmarks5, trans = frontalize_face(image, facial_landmarks)
-        face_array = cv2.resize(face_img, (112, 112))
-        face_array = np.array(face_array, dtype=np.float32)
+            embeddings = recognizer.vectorize(face_array)[0]
+            embedding = embeddings[0]
+            # print("embedding:", embedding.shape)
 
-        embeddings = recognizer.vectorize(face_array)[0]
-        embedding = embeddings[0]
-        # print("embedding:", embedding.shape)
+            # Extract the name from the file name
+            name = os.path.splitext(image_file)[0]
+            # print('name: ', name)
+            # print("="*20)
 
-        # Extract the name from the file name
-        name = os.path.splitext(image_file)[0]
-        # print('name: ', name)
-        # print("="*20)
-
-        dbManager.create_embeddings(embedding=embedding, username=name)
+            dbManager.create_embeddings(embedding=embedding, username=name)         
