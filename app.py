@@ -1,6 +1,5 @@
 import streamlit as st
 import cv2
-from PIL import Image
 import numpy as np
 from detect import FaceDetector
 from recognizer import Recognizer
@@ -135,7 +134,6 @@ def main():
         cv2.destroyAllWindows()
         if recognized_name != "Unknown":
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            # timezone = "Asia/Ho_Chi_Minh"
             payload = {
                 "email": recognized_email,
                 "type": st.session_state.action,
