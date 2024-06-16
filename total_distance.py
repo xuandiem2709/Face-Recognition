@@ -12,7 +12,7 @@ face_detector = FaceDetector()
 recognize = Recognizer()
 # align = FaceAlignment()
 
-folder_path = "examples/datas"
+folder_path = "examples/evaluation/datas"
 image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f)) and f.endswith((".jpg", ".jpeg", ".png"))]
 known_face_embeddings = []
 known_face_names = []
@@ -41,7 +41,7 @@ for image_file in image_files:
     name = os.path.splitext(image_file)[0]
     known_face_names.append(name)
 
-folder_path = "examples/verifies"
+folder_path = "examples/evaluation/verifies"
 image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f)) and f.endswith((".jpg", ".jpeg", ".png"))]
 
 df1 = pd.DataFrame(columns=known_face_names)

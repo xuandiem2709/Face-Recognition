@@ -32,7 +32,6 @@ def capture_frame(cap):
         if recognized[0] is not None:
             name = recognized[1]
 
-    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
     font = cv2.FONT_HERSHEY_DUPLEX
     cv2.putText(frame, name, (x, h+35), font, 1.0, (255, 255, 255), 1)

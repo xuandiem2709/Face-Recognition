@@ -5,7 +5,7 @@ from db.managers import DBManager
 from db.common import dbSession
 
 
-THRESHOLD = 0.45
+THRESHOLD = 0.49
 MIN_SIMILARITY_DIFFERENCE = 0.1
 
 logger = logging.getLogger(__name__)
