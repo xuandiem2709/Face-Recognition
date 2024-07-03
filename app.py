@@ -59,7 +59,7 @@ def handle_recognition_detection(frame):
 
 def main():
     st.set_page_config(page_title="Attendance App")
-    st.markdown("<h1 style='font-size: 36px;'>Face Recognition Attendance System</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 36px;'>Attendance Device Emulator</h1>", unsafe_allow_html=True)
 
    # Initialize session state variables if they don't exist
     if 'stop' not in st.session_state:
